@@ -83,10 +83,14 @@
 	\]
 \end{definition}
 
+\begin{note}
+	Это определение работает и для обычной выпуклости, если учитывать, что выпуклость -- это 0-сильная выпуклость.
+\end{note}
+
 \begin{theorem}
 	Критерий сильной выпуклости дважды непрерывно дифференцируемой функции.
 
-	Пусть функция $f:\: \mathbb{R}^d \to \mathbb{R}$ дыважды непрерывно дифференцируема на $\mathbb{R}^d$. Тогда функция $f$ является $\mu$-сильно выпуклой тогда и только тогда, когда для любого $x \in \mathbb{R}^d$ выполнено
+	Пусть функция $f:\: \mathbb{R}^d \to \mathbb{R}$ дважды непрерывно дифференцируема на $\mathbb{R}^d$. Тогда функция $f$ является $\mu$-сильно выпуклой тогда и только тогда, когда для любого $x \in \mathbb{R}^d$ выполнено
 	\[
 		\nabla^2 f(x) \succeq \mu I
 	\]
@@ -180,7 +184,7 @@
 \end{definition}
 
 \begin{definition}
-	Заача линейного программирования в общем виде представима в виде:
+	Задача линейного программирования в общем виде представима в виде:
 	\begin{align*}
 		\min_{x \in \mathbb{R}^n} c^Tx \\
 		\text{s.t. } Ax=b              \\
@@ -223,7 +227,7 @@
 	\begin{align*}
 		\min_{x \in \mathbb{R}^n} c^Tx \\
 		\text{s.t. }Ax = b             \\
-		F_0 + \sum_{i = 1}^n F_ix_i \succeq 0
+		F_0 + \sum_{i = 1}^n F_i(x_i) \succeq 0
 	\end{align*}
 	где $A \in \mathbb{R}^{m \times n},\, F_j \in S^n,\, j = \overline{0,\, n}$
 \end{definition}
@@ -597,7 +601,7 @@
 \]
 где должно выполняться $Wy^k = s^k$ даёт метод BFGS. Каждый раз решать задачу оптимизации нам не придётся, явный вид метода давно известен:
 \[
-	H_{k + 1} = (I - \rho_ks^k(y^k)^T)H_k(I - \rho_ky^k(s^k)^T) + \rho_ks^k(s^K)^T
+	H_{k + 1} = (I - \rho_ks^k(y^k)^T)H_k(I - \rho_ky^k(s^k)^T) + \rho_ks^k(s^k)^T
 \]
 где $\rho = \frac{1}{(y^k)^Ts^k}$
 
@@ -656,7 +660,7 @@
 		      \]
 		\item Пусть $\mathcal{X} \subseteq \mathbb{R}^d$ -- выпуклое множество, $x_1,\,x_2 \in \mathbb{R}^d$. Тогда
 		      \[
-			      \|\Pi_\mathcal{X}(x_1) - \Pi_\mathcal{X}(x_2)\| \leq \|x_1 - x_2\|_2
+			      \|\Pi_\mathcal{X}(x_1) - \Pi_\mathcal{X}(x_2)\|_2 \leq \|x_1 - x_2\|_2
 		      \]
 		\item Для $x^*$ -- решения условной задачи минимизации выпуклой непрерывно дифференцируемой функции $f$ на выпуклом множестве $\mathcal{X}$ справедливо
 		      \[
@@ -716,7 +720,7 @@
 \]
 Видно, что функция убывает по $\lambda$, поэтому $\lambda_i^* = 0$. Выпишем условие ККТ:
 \[
-	\nabla_x\left(\sum_{i = 1}^d\left(\log\left(\frac{x_i}{x_i^k}\right) + \gamma[\nabla f(x^k)]_i - \lambda_i + \nu\right)x_i - \nu\right)
+	\nabla_x\left(\sum_{i = 1}^d\left(\log\left(\frac{x_i}{x_i^k}\right) + \gamma[\nabla f(x^k)]_i - \lambda_i + \nu\right)x_i - \nu\right) = 0
 \]
 Откуда
 \[
@@ -771,7 +775,7 @@ $\begin{pmatrix}
 \begin{theorem}
 	Пусть дана непрерывно дифференцируемая по обеим группам переменных выпуклая-вогнутая $L$-гладкая функция $L :\: \mathbb{R}^d \times \mathbb{R}^n \to \mathbb{R}$ тогда для экстраградиентного метода справедлива следующая оценка сходимости для любого $u \in \mathbb{R}^d \times \mathbb{R}^n$ и для любого $\gamma \leq \frac{1}{L}$: ТОЧНАЯ ФОРМУЛА НА ДВА БАЛЛА, ХАРАКТЕР СХОДИМОСТИ НА ОДИН
 	\[
-		L\left(\frac{1}{K}\sum_{k = 0}^{K - 1}x^{k + 1/2},\, u_\lambda\right) - L\left(u_x,\, \frac{1}{K}\sum_{k = 0}^{K - 1}\lambda^{k + 1/2}\right) \leq \frac{\|z^0 - u\|_2^2}{2\gamma K}
+		L\left(\frac{1}{K}\sum_{k = 0}^{K - 1}x^{k + 1/2},\, u_\lambda\right) - L\left(u_x,\, \frac{1}{K}\sum_{k = 0}^{K - 1}\lambda^{k + 1/2}\right) \leq \frac{L\|z^0 - u\|_2^2}{2 K}
 	\]
 	То есть характер сходимости сублинейный.
 \end{theorem}
@@ -899,7 +903,7 @@ $\begin{pmatrix}
 \begin{definition}
   Функция $F$ называется барьерной к множеству $G$, если она удовлетворяет следующим свойствам:
   \begin{enumerate}
-    \item она является непрерывно дифференцируемой на $\text{int } G$
+    \item Она является непрерывно дифференцируемой на $\text{int } G$
     \item Для любой последовательности $\{x_i\} \subset \text{int }G$ такой, что $x_i \to x \in \partial G$, выполнено $F(x_i) \to +\infty$
   \end{enumerate}
 \end{definition}
@@ -939,13 +943,27 @@ $\begin{pmatrix}
 
   Функция $F$ является $\nu$-самосогласованным барьером ($\nu$ всегда $\geq 1$) на множестве $\text{int }G$, если
   \begin{itemize}
-    \item $F$ самосогласованным барьером
+    \item $F$ -- самосогласованный барьер
     \item Выполнено условие:
     \[
       \forall x \in \text{int }G \: \forall h \in \mathbb{R}^d :\: \vert h^T \nabla F(x)\vert \leq \sqrt{\nu}\sqrt{h^T \nabla^2 F(x)h}
     \]
   \end{itemize}
 \end{definition}
+
+Свойства барьерной задачи:
+\begin{itemize}
+	\item Для любого $\rho > 0$ функция $F_\rho(x)$ принимает минимум на $\text{int }G$. А множества вида
+	\[
+		U = \{x \in \text{int }G \:\vert\: F_\rho(x) \leq a\}
+	\]
+	являются компактными для любого $a$.
+	\item Дополнительно предположим, что $\overline{\text{int }G} = G$. Тогда для любого $\varepsilon > 0$ существует $\rho(\varepsilon) > 0$ такое, что множество решений барьерной задачи $X_\rho^*$ для любых $\rho \geq \rho(\varepsilon) $ содержится в 
+	\[
+		X_\varepsilon^* = \{x \in G \:\vert\: \exists x^* \in X^* :\: \|x - x^*\|_2 \leq \varepsilon\}
+	\]
+	где $X^*$ -- множество решений исходной задачи оптимизации с ограничениями вида неравенств.
+\end{itemize}
 
 \begin{lemma}
   НА ДВА БАЛЛА.
